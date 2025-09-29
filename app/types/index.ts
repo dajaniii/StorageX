@@ -1,5 +1,5 @@
 // Page Navigation Types
-export type PageType = 'landing' | 'dashboard' | 'inventory' | 'ai-insights' | 'low-stock' | 'stores' | 'settings';
+export type PageType = 'landing' | 'dashboard' | 'inventory' | 'orders' | 'suppliers' | 'analytics' | 'ai-insights' | 'low-stock' | 'stores' | 'settings' | 'general' | 'stores-config' | 'ai-settings' | 'notifications' | 'billing' | 'documentation' | 'support';
 
 // Navigation Interface
 export interface NavItem {

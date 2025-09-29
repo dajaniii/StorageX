@@ -3,19 +3,22 @@
 import React from 'react';
 import { 
   Search, 
-  LayoutDashboard, 
-  Activity, 
-  CheckSquare, 
+  Home, 
+  Package, 
+  ShoppingCart, 
+  Store, 
+  Truck, 
   BarChart3, 
-  FolderOpen, 
   Settings, 
-  FileText, 
-  Inbox,
   ChevronDown,
-  ChevronUp,
-  ExternalLink
+  ChevronRight,
+  Shield,
+  Key,
+  Users,
+  Star,
+  Bell
 } from 'lucide-react';
-import { NavItem, PageType } from '../types';
+import { PageType } from '../types';
 
 interface SidebarNavProps {
   currentPage: PageType;
@@ -34,171 +37,156 @@ const SidebarNav: React.FC<SidebarNavProps> = ({
   expandedSections, 
   onToggleSection 
 }) => {
-  const navItems: NavItem[] = [
+  const navItems = [
     {
       id: 'dashboard',
-      label: 'Dashboard',
-      icon: <LayoutDashboard className="w-5 h-5" />,
+      label: 'Home',
+      icon: <Home className="w-5 h-5" />,
       active: currentPage === 'dashboard'
     },
     {
       id: 'inventory',
       label: 'Inventory',
-      icon: <CheckSquare className="w-5 h-5" />,
-      count: 1247,
+      icon: <Package className="w-5 h-5" />,
       active: currentPage === 'inventory'
     },
     {
-      id: 'low-stock',
-      label: 'Low Stock Alerts',
-      icon: <Activity className="w-5 h-5" />,
-      count: 12,
-      active: currentPage === 'low-stock'
-    },
-    {
-      id: 'ai-insights',
-      label: 'AI Insights',
-      icon: <BarChart3 className="w-5 h-5" />,
-      active: currentPage === 'ai-insights'
+      id: 'orders',
+      label: 'Orders',
+      icon: <ShoppingCart className="w-5 h-5" />,
+      active: currentPage === 'orders'
     },
     {
       id: 'stores',
-      label: 'Store Locations',
-      icon: <FolderOpen className="w-5 h-5" />,
+      label: 'Stores',
+      icon: <Store className="w-5 h-5" />,
       active: currentPage === 'stores'
+    },
+    {
+      id: 'suppliers',
+      label: 'Suppliers',
+      icon: <Truck className="w-5 h-5" />,
+      active: currentPage === 'suppliers'
+    },
+    {
+      id: 'analytics',
+      label: 'Analytics',
+      icon: <BarChart3 className="w-5 h-5" />,
+      active: currentPage === 'analytics'
     },
     {
       id: 'settings',
       label: 'Settings',
       icon: <Settings className="w-5 h-5" />,
-      children: [
-        { id: 'general', label: 'General', icon: null },
-        { id: 'stores-config', label: 'Store Configuration', icon: null },
-        { id: 'ai-settings', label: 'AI Settings', icon: null },
-        { id: 'notifications', label: 'Notifications', icon: null },
-        { id: 'billing', label: 'Billing', icon: null }
-      ]
-    },
-    {
-      id: 'documentation',
-      label: 'API Documentation',
-      icon: <FileText className="w-5 h-5" />
-    },
-    {
-      id: 'support',
-      label: 'Support',
-      icon: <Inbox className="w-5 h-5" />,
-      count: 3
+      hasSubmenu: true,
+      active: currentPage === 'settings' || currentPage === 'general' || currentPage === 'stores-config' || currentPage === 'ai-settings' || currentPage === 'notifications' || currentPage === 'billing'
     }
   ];
 
-  const renderNavItem = (item: NavItem, depth: number = 0): JSX.Element => {
-    const isExpanded = expandedSections.includes(item.id);
-    const hasChildren = item.children && item.children.length > 0;
+  const settingsSubmenu = [
+    { id: 'general', label: 'Connected Service' },
+    { id: 'stores-config', label: 'Password & Security' },
+    { id: 'ai-settings', label: 'Team' }
+  ];
 
-    return (
-      <div key={item.id} className={depth > 0 ? 'ml-6' : ''}>
-        {hasChildren ? (
-          <button
-            onClick={() => onToggleSection(item.id)}
-            className="flex items-center justify-between w-full p-3 text-slate-300 hover:text-white hover:bg-slate-800 rounded-lg transition-colors duration-200"
-          >
-            <div className="flex items-center">
-              {item.icon}
-              <span className="ml-3 text-sm font-medium">{item.label}</span>
-              {item.count && (
-                <span className="ml-auto bg-blue-600 text-blue-100 px-2 py-1 text-xs rounded-full font-medium">
-                  {item.count}
-                </span>
-              )}
-            </div>
-            {isExpanded ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
-          </button>
-        ) : (
-          <button
-            onClick={() => onPageChange(item.id as PageType)}
-            className={`flex items-center w-full p-3 text-slate-300 hover:text-white hover:bg-slate-800 rounded-lg transition-colors duration-200 ${
-              item.active ? 'bg-slate-800 text-white border-r-2 border-blue-500' : ''
-            }`}
-          >
-            {item.icon}
-            <span className="ml-3 text-sm font-medium">{item.label}</span>
-            {item.count && (
-              <span className="ml-auto bg-blue-600 text-blue-100 px-2 py-1 text-xs rounded-full font-medium">
-                {item.count}
-              </span>
-            )}
-          </button>
-        )}
-        
-        {hasChildren && isExpanded && (
-          <div className="mt-2 space-y-1">
-            {item.children!.map(child => (
-              <button
-                key={child.id}
-                className={`flex items-center w-full p-2 ml-8 text-slate-400 hover:text-white hover:bg-slate-800 rounded-lg transition-colors duration-200 ${
-                  child.id === 'billing' ? 'bg-slate-800 text-white' : ''
-                }`}
-              >
-                <div className="w-1 h-1 bg-current rounded-full mr-3"></div>
-                <span className="text-sm">{child.label}</span>
-              </button>
-            ))}
-          </div>
-        )}
-      </div>
-    );
-  };
+  const isSettingsExpanded = expandedSections.includes('settings');
 
   return (
-    <div className="w-80 h-screen bg-slate-900 border-r border-slate-700 flex flex-col">
-      {/* Header */}
-      <div className="p-6 border-b border-slate-700">
-        <div className="flex items-center mb-4">
-          <div className="w-10 h-10 bg-gradient-to-br from-blue-500 via-blue-600 to-blue-700 rounded-xl flex items-center justify-center shadow-lg">
-            <span className="w-6 h-6 text-white font-bold text-sm flex items-center justify-center">
-              S
-            </span>
+    <div className="w-80 h-screen bg-white border-r border-gray-200 flex flex-col">
+      {/* User Profile */}
+      <div className="p-6 border-b border-gray-200">
+        <div className="flex items-center space-x-3">
+          <div className="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center text-white font-semibold">
+            AM
           </div>
-          <div className="ml-3">
-            <h1 className="text-white font-bold text-lg">Storagex</h1>
-            <p className="text-xs text-slate-400">AI Inventory Management</p>
+          <div className="flex-1">
+            <div className="font-semibold text-gray-900">Alex Manager</div>
+            <div className="text-sm text-gray-500">admin@storagex.com</div>
           </div>
-          <button onClick={() => onPageChange('landing')}>
-            <ExternalLink className="w-4 h-4 text-slate-400 ml-auto hover:text-white" />
-          </button>
+          <ChevronDown className="w-4 h-4 text-gray-400" />
         </div>
-        
-        {/* Search */}
+      </div>
+
+      {/* Search */}
+      <div className="p-4">
         <div className="relative">
-          <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 transform -translate-y-1/2" />
-          <input
-            type="text"
-            placeholder="Search inventory..."
+          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
+          <input 
+            type="text" 
+            placeholder="Q Search..." 
             value={searchQuery}
             onChange={(e) => onSearchChange(e.target.value)}
-            className="w-full bg-slate-800 border border-slate-600 rounded-lg pl-10 pr-4 py-2 text-sm text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+            className="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
           />
         </div>
       </div>
 
       {/* Navigation */}
-      <div className="flex-1 px-4 py-4 space-y-2 overflow-y-auto">
-        {navItems.map(item => renderNavItem(item))}
-      </div>
+      <nav className="px-4 space-y-2 flex-1">
+        {navItems.map((item) => (
+          <div key={item.id}>
+            {item.hasSubmenu ? (
+              <button
+                onClick={() => onToggleSection(item.id)}
+                className={`flex items-center justify-between w-full px-3 py-2 text-gray-600 hover:bg-gray-100 rounded-lg transition-colors ${
+                  item.active ? 'bg-blue-600 text-white' : ''
+                }`}
+              >
+                <div className="flex items-center">
+                  {item.icon}
+                  <span className="ml-3 text-sm font-medium">{item.label}</span>
+                </div>
+                {isSettingsExpanded ? (
+                  <ChevronDown className="w-4 h-4" />
+                ) : (
+                  <ChevronRight className="w-4 h-4" />
+                )}
+              </button>
+            ) : (
+              <button
+                onClick={() => onPageChange(item.id as PageType)}
+                className={`flex items-center w-full px-3 py-2 text-gray-600 hover:bg-gray-100 rounded-lg transition-colors ${
+                  item.active ? 'bg-blue-600 text-white' : ''
+                }`}
+              >
+                {item.icon}
+                <span className="ml-3 text-sm font-medium">{item.label}</span>
+              </button>
+            )}
+            
+            {item.hasSubmenu && isSettingsExpanded && (
+              <div className="ml-6 space-y-1 mt-2">
+                {settingsSubmenu.map((subItem) => (
+                  <button
+                    key={subItem.id}
+                    onClick={() => onPageChange(subItem.id as PageType)}
+                    className={`flex items-center w-full px-3 py-2 text-sm text-gray-600 hover:bg-gray-100 rounded-lg transition-colors ${
+                      currentPage === subItem.id ? 'bg-blue-50 text-blue-600' : ''
+                    }`}
+                  >
+                    <span>{subItem.label}</span>
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+        ))}
+      </nav>
 
-      {/* User Profile */}
-      <div className="p-4 border-t border-slate-700">
-        <button className="flex items-center w-full p-3 text-slate-300 hover:text-white hover:bg-slate-800 rounded-lg transition-colors duration-200">
-          <div className="w-8 h-8 rounded-full overflow-hidden mr-3 ring-2 ring-blue-500/20 bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center">
-            <span className="text-white font-semibold text-sm">SM</span>
+      {/* Pro Upgrade Card */}
+      <div className="p-4">
+        <div className="bg-gradient-to-r from-blue-600 to-blue-700 rounded-lg p-4 text-white">
+          <div className="flex items-center space-x-2 mb-2">
+            <Star className="w-5 h-5" />
+            <span className="font-semibold">Become Pro Access</span>
           </div>
-          <div className="flex-1 text-left">
-            <div className="text-sm font-medium text-white">Store Manager</div>
-            <div className="text-xs text-slate-400">admin@storagex.com</div>
-          </div>
-          <ExternalLink className="w-4 h-4" />
-        </button>
+          <p className="text-sm text-blue-100 mb-3">
+            Try your experience for using more features
+          </p>
+          <button className="w-full bg-white text-blue-600 px-4 py-2 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
+            Upgrade Pro
+          </button>
+        </div>
       </div>
     </div>
   );
