@@ -72,15 +72,15 @@ const FAQSection: React.FC = () => {
       <div className="absolute top-80 left-20 w-48 h-48 bg-pink-400/20 rounded-full blur-xl animate-pulse delay-1200"></div>
       <div className="absolute bottom-80 right-1/3 w-60 h-60 bg-amber-400/15 rounded-full blur-3xl animate-pulse delay-400"></div>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <div className="inline-flex items-center px-4 py-2 bg-blue-100 text-blue-800 rounded-full text-sm font-medium mb-6">
-            <MessageCircle className="w-4 h-4 mr-2" />
+        <div className="text-center mb-12 sm:mb-16 px-4 sm:px-0">
+          <div className="inline-flex items-center px-3 sm:px-4 py-2 bg-blue-100 text-blue-800 rounded-full text-xs sm:text-sm font-medium mb-4 sm:mb-6">
+            <MessageCircle className="w-3 h-3 sm:w-4 sm:h-4 mr-2" />
             Frequently Asked Questions
           </div>
-          <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6 tracking-tight">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900 mb-4 sm:mb-6 tracking-tight">
             Your <span className="bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent">Questions Answered</span>
           </h2>
-          <p className="text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-base sm:text-lg lg:text-xl text-slate-600 max-w-xs sm:max-w-2xl lg:max-w-3xl mx-auto leading-relaxed">
             Find quick answers to the most common questions about Storagex and how it can help your business.
           </p>
         </div>

@@ -141,21 +141,21 @@ const PricingSection = () => {
       <div className="absolute top-80 right-1/2 w-44 h-44 bg-rose-400/15 rounded-full blur-xl animate-pulse delay-1100"></div>
       <div className="absolute bottom-80 left-8 w-64 h-64 bg-indigo-400/20 rounded-full blur-3xl animate-pulse delay-500"></div>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="text-center max-w-3xl mx-auto mb-12">
-          <div className="inline-flex items-center px-4 py-2 bg-blue-100 text-blue-800 rounded-full text-sm font-medium mb-6">
-            <Star className="w-4 h-4 mr-2" />
+        <div className="text-center max-w-xs sm:max-w-2xl lg:max-w-3xl mx-auto mb-8 sm:mb-12 px-4 sm:px-0">
+          <div className="inline-flex items-center px-3 sm:px-4 py-2 bg-blue-100 text-blue-800 rounded-full text-xs sm:text-sm font-medium mb-4 sm:mb-6">
+            <Star className="w-3 h-3 sm:w-4 sm:h-4 mr-2" />
             Trusted by 10,000+ retailers
           </div>
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 mb-4 tracking-tight">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-slate-900 mb-3 sm:mb-4 tracking-tight">
             Simple, transparent pricing
           </h1>
-          <p className="text-lg text-slate-600 mb-6">
+          <p className="text-sm sm:text-base lg:text-lg text-slate-600 mb-4 sm:mb-6">
             Choose the plan that fits your business needs. No hidden fees, no surprises.
           </p>
 
           <div className="inline-flex items-center bg-white rounded-full p-1 shadow-sm border border-slate-200">
             <button
-              className={`px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-300 ${!isAnnual
+              className={`px-4 sm:px-6 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-medium transition-all duration-300 ${!isAnnual
                   ? 'bg-blue-600 text-white shadow-sm'
                   : 'text-slate-600 hover:text-slate-900'
                 }`}
@@ -164,7 +164,7 @@ const PricingSection = () => {
               Monthly
             </button>
             <button
-              className={`px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-300 ${isAnnual
+              className={`px-4 sm:px-6 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-medium transition-all duration-300 ${isAnnual
                   ? 'bg-blue-600 text-white shadow-sm'
                   : 'text-slate-600 hover:text-slate-900'
                 }`}
@@ -175,16 +175,16 @@ const PricingSection = () => {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 max-w-7xl mx-auto">
           {plans.map((plan, index) => {
             const IconComponent = plan.icon;
             return (
               <div
                 key={plan.name}
-                className={`relative rounded-2xl border bg-white ${plan.highlighted
+                className={`relative rounded-xl sm:rounded-2xl border bg-white ${plan.highlighted
                     ? 'border-blue-500/30 bg-gradient-to-br from-blue-50 to-white scale-[1.02] shadow-xl'
                     : 'border-slate-200 hover:border-slate-300 shadow-sm hover:shadow-md'
-                  } p-6 transition-all duration-500 ${
+                  } p-4 sm:p-6 transition-all duration-500 ${
                     isAnimating ? 'transform scale-[1.01] shadow-lg' : 'transform scale-100'
                   }`}
               >
@@ -205,27 +205,27 @@ const PricingSection = () => {
                   </>
                 )}
 
-                <div className="mb-6">
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className={`w-12 h-12 flex items-center justify-center rounded-xl ${
+                <div className="mb-4 sm:mb-6">
+                  <div className="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4">
+                    <div className={`w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center rounded-lg sm:rounded-xl ${
                       plan.highlighted 
                         ? 'bg-blue-500 text-white' 
                         : 'bg-slate-100 text-slate-600'
                     }`}>
-                      <IconComponent className="w-6 h-6" />
+                      <IconComponent className="w-5 h-5 sm:w-6 sm:h-6" />
                     </div>
-                    <h3 className="text-xl font-medium text-slate-900">{plan.name}</h3>
+                    <h3 className="text-lg sm:text-xl font-medium text-slate-900">{plan.name}</h3>
                   </div>
-                  <div className="flex items-baseline gap-2">
-                    <div className="relative min-w-[80px] h-12 flex items-center">
-                      <span className={`text-4xl font-bold text-slate-900 transition-all duration-300 ${
+                  <div className="flex items-baseline gap-1 sm:gap-2">
+                    <div className="relative min-w-[60px] sm:min-w-[80px] h-10 sm:h-12 flex items-center">
+                      <span className={`text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 transition-all duration-300 ${
                         isAnimating ? 'transform scale-105' : 'transform scale-100'
                       }`}>
                         {plan.price}
                       </span>
                     </div>
                     {plan.price !== "Custom" && (
-                      <span className={`text-sm text-slate-600 transition-all duration-500 ${
+                      <span className={`text-xs sm:text-sm text-slate-600 transition-all duration-500 ${
                         isAnimating ? 'opacity-70 transform translate-x-1' : 'opacity-100 transform translate-x-0'
                       }`}>
                         {plan.name === "Starter" ? animatedText.starter : 
@@ -234,22 +234,22 @@ const PricingSection = () => {
                       </span>
                     )}
                   </div>
-                  <p className="text-sm text-slate-600 mt-4">{plan.description}</p>
+                  <p className="text-xs sm:text-sm text-slate-600 mt-3 sm:mt-4">{plan.description}</p>
                 </div>
 
-                <div className="space-y-3 mb-6">
+                <div className="space-y-2 sm:space-y-3 mb-4 sm:mb-6">
                   {plan.features.map((feature, i) => (
-                    <div key={i} className="flex items-center gap-2.5">
-                      <div className="w-5 h-5 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
-                        <Check className="h-3 w-3 text-green-600" />
+                    <div key={i} className="flex items-center gap-2 sm:gap-2.5">
+                      <div className="w-4 h-4 sm:w-5 sm:h-5 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
+                        <Check className="h-2.5 w-2.5 sm:h-3 sm:w-3 text-green-600" />
                       </div>
-                      <span className="text-sm text-slate-700">{feature}</span>
+                      <span className="text-xs sm:text-sm text-slate-700">{feature}</span>
                     </div>
                   ))}
                 </div>
 
                 <button
-                  className={`w-full py-3 px-4 rounded-xl text-sm font-medium transition-all duration-300 ${plan.highlighted
+                  className={`w-full py-2.5 sm:py-3 px-3 sm:px-4 rounded-lg sm:rounded-xl text-xs sm:text-sm font-medium transition-all duration-300 ${plan.highlighted
                       ? 'bg-blue-500 text-white hover:bg-blue-600 shadow-lg hover:shadow-xl transform hover:scale-105'
                       : 'border border-slate-200 text-slate-700 hover:bg-slate-50 hover:border-slate-300'
                     }`}

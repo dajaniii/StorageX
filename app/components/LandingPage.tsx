@@ -26,8 +26,8 @@ const LandingPage: React.FC<LandingPageProps> = ({ onPageChange }) => {
         <div className="mx-auto px-4 sm:px-6 lg:px-8">
           <div className="relative flex items-center justify-between h-16">
             {/* Logo - Left side */}
-            <div className="flex items-center flex-shrink-0 px-10">
-              <Image width={180} height={180} src={'/logo.png'} alt='logo'></Image>
+            <div className="flex items-center flex-shrink-0 px-4 sm:px-6 lg:px-10">
+              <Image width={120} height={40} src={'/logo.png'} alt='logo' className="h-8 sm:h-10 lg:h-12 w-auto"></Image>
             </div>
             
             {/* Navigation Links - Absolutely centered */}
@@ -47,31 +47,33 @@ const LandingPage: React.FC<LandingPageProps> = ({ onPageChange }) => {
             </div>
             
             {/* Buttons - Right side */}
-            <div className="flex items-center gap-2 flex-shrink-0">
+            <div className="hidden sm:flex items-center gap-1 lg:gap-2 flex-shrink-0">
               <button 
                 onClick={() => onPageChange('dashboard')}
-                className="text-black px-4 py-2 text-sm rounded hover:bg-gray-100 hover:text-slate-800 transition-all duration-200 font-medium"
+                className="text-black px-2 lg:px-4 py-2 text-xs lg:text-sm rounded hover:bg-gray-100 hover:text-slate-800 transition-all duration-200 font-medium"
               >
-                Book a Demo
+                <span className="hidden lg:inline">Book a Demo</span>
+                <span className="lg:hidden">Demo</span>
               </button>
-              <div className="w-[1px] h-10 bg-slate-600 mr-2"></div>
+              <div className="w-[1px] h-8 lg:h-10 bg-slate-600 mr-1 lg:mr-2"></div>
               <button 
                 onClick={() => onPageChange('dashboard')}
-                className="text-black px-4 py-2 rounded text-sm border border-slate-600 hover:bg-white transition-all duration-200 font-medium"
+                className="text-black px-2 lg:px-4 py-2 rounded text-xs lg:text-sm border border-slate-600 hover:bg-white transition-all duration-200 font-medium"
               >
                 Sign In
               </button>
               <button 
                 onClick={() => onPageChange('dashboard')}
-                className="bg-blue-700 text-white px-4 py-2 rounded text-sm   transform hover:scale-105 transition-all duration-200 font-medium"
+                className="bg-blue-700 text-white px-2 lg:px-4 py-2 rounded text-xs lg:text-sm transform hover:scale-105 transition-all duration-200 font-medium"
               >
-                Get Started 
+                <span className="hidden lg:inline">Get Started</span>
+                <span className="lg:hidden">Start</span>
               </button>
             </div>
 
-            <div className="md:hidden flex items-center">
+            <div className="sm:hidden flex items-center">
               <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="p-2 rounded-lg hover:bg-slate-100 hover:scale-105 transition-all duration-200">
-                {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+                {isMenuOpen ? <X className="w-6 h-6 text-black" /> : <Menu className="w-6 h-6 text-black" />}
               </button>
             </div>
           </div>
@@ -79,17 +81,31 @@ const LandingPage: React.FC<LandingPageProps> = ({ onPageChange }) => {
 
         {/* Mobile Menu */}
         {isMenuOpen && (
-          <div className="md:hidden bg-white/95 backdrop-blur-md border-t border-slate-200/50 shadow-lg">
+          <div className="sm:hidden bg-white/95 backdrop-blur-md border-t border-slate-200/50 shadow-lg">
             <div className="px-4 py-4 space-y-3">
               <a href="#features" className="block py-2 text-slate-600 hover:text-slate-900 font-medium transition-colors">Features</a>
               <a href="#pricing" className="block py-2 text-slate-600 hover:text-slate-900 font-medium transition-colors">Pricing</a>
               <a href="#testimonials" className="block py-2 text-slate-600 hover:text-slate-900 font-medium transition-colors">Reviews</a>
-              <button 
-                onClick={() => onPageChange('dashboard')}
-                className="w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white px-4 py-3 rounded-lg mt-3 font-semibold shadow-lg"
-              >
-                Try Demo
-              </button>
+              <div className="flex flex-col space-y-2 pt-2">
+                <button 
+                  onClick={() => onPageChange('dashboard')}
+                  className="w-full bg-blue-700 text-white px-4 py-3 rounded-lg font-semibold shadow-lg"
+                >
+                  Get Started
+                </button>
+                <button 
+                  onClick={() => onPageChange('dashboard')}
+                  className="w-full border border-slate-300 text-slate-700 px-4 py-3 rounded-lg font-medium"
+                >
+                  Sign In
+                </button>
+                <button 
+                  onClick={() => onPageChange('dashboard')}
+                  className="w-full text-slate-600 px-4 py-3 rounded-lg font-medium"
+                >
+                  Book a Demo
+                </button>
+              </div>
             </div>
           </div>
         )}
@@ -109,7 +125,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onPageChange }) => {
           icon: <Play className="mr-2 h-4 w-4" />,
         }}
         mockupImage={{
-          src: "https://www.launchuicomponents.com/app-light.png",
+          src: "/dashboard.png",
           alt: "Storagex Dashboard Preview",
           width: 800,
           height: 600,
@@ -138,20 +154,20 @@ const LandingPage: React.FC<LandingPageProps> = ({ onPageChange }) => {
         <div className="absolute top-0 left-0 right-0 h-px bg-gray-200"></div>
         
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="flex justify-between items-center py-6">
+          <div className="flex flex-col lg:flex-row justify-between items-center py-6 space-y-4 lg:space-y-0">
             {/* Left Section - Logo and Copyright */}
-            <div className="flex items-center space-x-6">
+            <div className="flex flex-col sm:flex-row items-center space-y-2 sm:space-y-0 sm:space-x-6">
               <div className="flex items-center">
                 <Image width={120} height={40} src={'/logo.png'} alt='Storagex logo' className="h-8 w-auto"></Image>
               </div>
-              <span className="text-gray-500 text-sm">Copyright © Storagex Inc. 2025</span>
+              <span className="text-gray-500 text-sm text-center sm:text-left">Copyright © Storagex Inc. 2025</span>
             </div>
             
             {/* Center Section - Legal Links */}
-            <div className="flex items-center space-x-8">
+            <div className="flex flex-col sm:flex-row items-center space-y-2 sm:space-y-0 sm:space-x-8">
               <a href="#" className="text-blue-600 hover:text-blue-700 text-sm transition-colors">Legal</a>
               <a href="#" className="text-blue-600 hover:text-blue-700 text-sm transition-colors">Privacy Policy</a>
-              <a href="#" className="text-blue-600 hover:text-blue-700 text-sm transition-colors">Do Not Sell or Share My Personal Information</a>
+              <a href="#" className="text-blue-600 hover:text-blue-700 text-sm transition-colors text-center">Do Not Sell or Share My Personal Information</a>
             </div>
             
             {/* Right Section - Social Media Icons */}

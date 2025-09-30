@@ -81,7 +81,7 @@ const SidebarNav: React.FC<SidebarNavProps> = ({
       hasSubmenu: true,
       active: currentPage === 'settings' || currentPage === 'general' || currentPage === 'stores-config' || currentPage === 'ai-settings' || currentPage === 'notifications' || currentPage === 'billing'
     }
-  ];
+  ];  
 
   const settingsSubmenu = [
     { id: 'general', label: 'Connected Service' },
@@ -96,12 +96,12 @@ const SidebarNav: React.FC<SidebarNavProps> = ({
       {/* User Profile */}
       <div className="p-6 border-b border-gray-200">
         <div className="flex items-center space-x-3">
-          <div className="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center text-white font-semibold">
-            AM
+          <div className="w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center text-gray-600 font-semibold">
+            AD
           </div>
           <div className="flex-1">
-            <div className="font-semibold text-gray-900">Alex Manager</div>
-            <div className="text-sm text-gray-500">admin@storagex.com</div>
+            <div className="font-semibold text-gray-900">Amr Dajani</div>
+            <div className="text-sm text-gray-500">amr.dajani@email.com</div>
           </div>
           <ChevronDown className="w-4 h-4 text-gray-400" />
         </div>
@@ -113,7 +113,7 @@ const SidebarNav: React.FC<SidebarNavProps> = ({
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
           <input 
             type="text" 
-            placeholder="Q Search..." 
+            placeholder="Search..." 
             value={searchQuery}
             onChange={(e) => onSearchChange(e.target.value)}
             className="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
@@ -175,7 +175,7 @@ const SidebarNav: React.FC<SidebarNavProps> = ({
 
       {/* Pro Upgrade Card */}
       <div className="p-4">
-        <div className="bg-gradient-to-r from-blue-600 to-blue-700 rounded-lg p-4 text-white">
+        <div className="bg-blue-600 rounded-lg p-4 text-white">
           <div className="flex items-center space-x-2 mb-2">
             <Star className="w-5 h-5" />
             <span className="font-semibold">Become Pro Access</span>

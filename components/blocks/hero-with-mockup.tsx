@@ -49,8 +49,8 @@ export function HeroWithMockup({
         className,
       )}
     >
-      <div className="relative mx-auto max-w-[1280px] flex flex-col gap-12 lg:gap-24">
-        <div className="relative z-10 flex flex-col items-center gap-6 pt-8 md:pt-16 text-center lg:gap-12">
+      <div className="relative mx-auto max-w-[1280px] flex flex-col gap-8 sm:gap-12 lg:gap-24">
+        <div className="relative z-10 flex flex-col items-center gap-4 sm:gap-6 pt-8 md:pt-16 text-center lg:gap-12">
           {/* Heading */}
           <h1
             className={cn(
@@ -67,10 +67,11 @@ export function HeroWithMockup({
           {/* Description */}
           <p
             className={cn(
-              "max-w-[550px]",
-              "text-base sm:text-lg md:text-xl",
+              "max-w-[320px] sm:max-w-[450px] md:max-w-[550px]",
+              "text-sm sm:text-base md:text-lg lg:text-xl",
               "text-slate-600 dark:text-slate-300",
               "font-medium",
+              "px-4 sm:px-0",
             )}
           >
             {description}
@@ -78,7 +79,7 @@ export function HeroWithMockup({
 
           {/* CTAs */}
           <div
-            className="relative z-10 flex flex-wrap justify-center gap-4"
+            className="relative z-10 flex flex-col sm:flex-row justify-center gap-3 sm:gap-4 w-full max-w-md sm:max-w-none"
           >
             <Button
               asChild
@@ -109,7 +110,7 @@ export function HeroWithMockup({
           </div>
 
           {/* Mockup */}
-          <div className="relative w-full pt-12 px-4 sm:px-6 lg:px-8">
+          <div className="relative w-full pt-8 sm:pt-12 px-4 sm:px-6 lg:px-8">
             <Mockup
               className={cn(
                 "shadow-[0_0_50px_-12px_rgba(0,0,0,0.3)] dark:shadow-[0_0_50px_-12px_rgba(255,255,255,0.1)]",
