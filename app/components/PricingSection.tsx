@@ -249,6 +249,7 @@ const PricingSection = () => {
                 </div>
 
                 <button
+                  onClick={() => window.location.href = '/dashboard'}
                   className={`w-full py-2.5 sm:py-3 px-3 sm:px-4 rounded-lg sm:rounded-xl text-xs sm:text-sm font-medium transition-all duration-300 ${plan.highlighted
                       ? 'bg-blue-500 text-white hover:bg-blue-600 shadow-lg hover:shadow-xl transform hover:scale-105'
                       : 'border border-slate-200 text-slate-700 hover:bg-slate-50 hover:border-slate-300'

@@ -12,6 +12,7 @@ import ProductsContent from './ProductsContent';
 import OrdersContent from './OrdersContent';
 import SuppliersContent from './SuppliersContent';
 import AnalyticsContent from './AnalyticsContent';
+import SupportContent from './SupportContent';
 import { PageType } from '../types';
 import ErrorBoundary from './ErrorBoundary';
 import { 
@@ -29,10 +30,12 @@ import {
 
 interface DashboardLayoutProps {
   initialPage?: PageType;
+  onPageChange?: (page: PageType) => void;
 }
 
 const DashboardLayout: React.FC<DashboardLayoutProps> = ({ 
-  initialPage = 'dashboard' 
+  initialPage = 'dashboard',
+  onPageChange
 }) => {
   const [currentPage, setCurrentPage] = useState<PageType>(initialPage);
   const [searchQuery, setSearchQuery] = useState<string>('');
@@ -64,7 +67,10 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
   const handlePageChange = useCallback((page: PageType): void => {
     setCurrentPage(page);
     setSelectedItems([]);
-  }, []);
+    if (onPageChange) {
+      onPageChange(page);
+    }
+  }, [onPageChange]);
 
   const navItems = [
     { id: 'dashboard', label: 'Overview', icon: <Home className="w-4 h-4" /> },
@@ -180,18 +186,9 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
         );
       case 'support':
         return (
-          <div className="flex-1 bg-slate-50 overflow-auto">
-            <div className="bg-white border-b border-slate-200 p-6">
-              <h1 className="text-2xl font-bold text-slate-900">Support</h1>
-              <p className="text-slate-600 mt-1">Get help and support for your Storagex account</p>
-            </div>
-            <div className="p-6">
-              <div className="bg-white rounded-xl border border-slate-200 p-6">
-                <h3 className="text-lg font-semibold text-slate-900 mb-4">Support Center</h3>
-                <p className="text-slate-600">Support tickets, knowledge base, and contact information would go here.</p>
-              </div>
-            </div>
-          </div>
+          <SupportContent
+            onPageChange={handlePageChange}
+          />
         );
       default:
         return (
@@ -243,7 +240,13 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
                       <span>Settings</span>
                     </button>
                     <div className="border-t border-gray-100 mt-1">
-                      <button className="w-full text-left px-3 py-2 text-xs text-gray-700 hover:bg-gray-100">
+                      <button 
+                        onClick={() => {
+                          alert('Signing out...');
+                          window.location.href = '/';
+                        }}
+                        className="w-full text-left px-3 py-2 text-xs text-gray-700 hover:bg-gray-100"
+                      >
                         Sign out
                       </button>
                     </div>
@@ -259,12 +262,12 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
                     onClick={() => handlePageChange(item.id as PageType)}
                     className={`flex items-center space-x-1 px-3 py-2 text-xs font-medium transition-all duration-200 rounded-lg ${
                       currentPage === item.id 
-                        ? 'bg-blue-50 text-blue-700 border border-blue-200 shadow-sm' 
+                        ? 'bg-brand-50 text-brand-main border border-brand-200 shadow-sm' 
                         : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
                     }`}
                   >
                     <div className={`transition-colors ${
-                      currentPage === item.id ? 'text-blue-600' : 'text-gray-500'
+                      currentPage === item.id ? 'text-brand-main' : 'text-gray-500'
                     }`}>
                       {item.icon}
                     </div>
@@ -278,18 +281,18 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
                     onClick={() => setIsAnalyticsDropdownOpen(!isAnalyticsDropdownOpen)}
                     className={`flex items-center space-x-1 px-3 py-2 text-xs font-medium transition-all duration-200 rounded-lg ${
                       currentPage === 'analytics' || currentPage === 'ai-insights'
-                        ? 'bg-blue-50 text-blue-700 border border-blue-200 shadow-sm' 
+                        ? 'bg-brand-50 text-brand-main border border-brand-200 shadow-sm' 
                         : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
                     }`}
                   >
                     <div className={`transition-colors ${
-                      currentPage === 'analytics' || currentPage === 'ai-insights' ? 'text-blue-600' : 'text-gray-500'
+                      currentPage === 'analytics' || currentPage === 'ai-insights' ? 'text-brand-main' : 'text-gray-500'
                     }`}>
                       <BarChart3 className="w-4 h-4" />
                     </div>
                     <span>Analytics</span>
                     <ChevronDown className={`w-3 h-3 transition-colors ${
-                      currentPage === 'analytics' || currentPage === 'ai-insights' ? 'text-blue-500' : 'text-gray-400'
+                      currentPage === 'analytics' || currentPage === 'ai-insights' ? 'text-brand-500' : 'text-gray-400'
                     }`} />
                   </button>
                   
@@ -303,12 +306,12 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
                         }}
                         className={`w-full text-left px-3 py-2 text-xs flex items-center space-x-2 transition-colors ${
                           currentPage === 'analytics'
-                            ? 'bg-blue-50 text-blue-700'
+                            ? 'bg-brand-50 text-brand-main'
                             : 'text-gray-700 hover:bg-gray-100'
                         }`}
                       >
                         <BarChart3 className={`w-3 h-3 ${
-                          currentPage === 'analytics' ? 'text-blue-600' : 'text-gray-500'
+                          currentPage === 'analytics' ? 'text-brand-main' : 'text-gray-500'
                         }`} />
                         <span>Analytics</span>
                       </button>
@@ -319,12 +322,12 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
                         }}
                         className={`w-full text-left px-3 py-2 text-xs flex items-center space-x-2 transition-colors ${
                           currentPage === 'ai-insights'
-                            ? 'bg-blue-50 text-blue-700'
+                            ? 'bg-brand-50 text-brand-main'
                             : 'text-gray-700 hover:bg-gray-100'
                         }`}
                       >
                         <BarChart3 className={`w-3 h-3 ${
-                          currentPage === 'ai-insights' ? 'text-blue-600' : 'text-gray-500'
+                          currentPage === 'ai-insights' ? 'text-brand-main' : 'text-gray-500'
                         }`} />
                         <span>AI Insights</span>
                       </button>
@@ -343,10 +346,13 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
                   placeholder="Search..." 
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="pl-7 pr-3 py-1.5 border border-gray-200 rounded text-xs focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-transparent w-48"
+                  className="pl-7 pr-3 py-1.5 border border-gray-200 rounded text-xs focus:outline-none focus:ring-1 focus:ring-brand-500 focus:border-transparent w-48"
                 />
               </div>
-              <button className="p-1.5 text-gray-600 hover:bg-gray-100 rounded transition-colors">
+              <button 
+                onClick={() => alert('You have 3 new notifications')}
+                className="p-1.5 text-gray-600 hover:bg-gray-100 rounded transition-colors"
+              >
                 <Bell className="w-4 h-4" />
               </button>
             </div>

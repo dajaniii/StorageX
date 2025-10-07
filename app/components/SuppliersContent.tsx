@@ -1,6 +1,6 @@
 'use client';
 
-import React, { memo, useCallback, useMemo } from 'react';
+import React, { memo, useCallback, useMemo, useState } from 'react';
 import {
   Truck,
   Search,
@@ -33,6 +33,8 @@ const SuppliersContent: React.FC<SuppliersContentProps> = memo(({
   onTimeFilterChange,
   onPageChange
 }) => {
+  const [activeTab, setActiveTab] = useState<'all' | 'active' | 'top-rated' | 'categories'>('all');
+
   const handleTimeFilterChange = useCallback((period: string) => {
     onTimeFilterChange(period);
   }, [onTimeFilterChange]);
@@ -40,6 +42,10 @@ const SuppliersContent: React.FC<SuppliersContentProps> = memo(({
   const handlePageChange = useCallback((page: PageType) => {
     onPageChange(page);
   }, [onPageChange]);
+
+  const handleTabChange = useCallback((tab: 'all' | 'active' | 'top-rated' | 'categories') => {
+    setActiveTab(tab);
+  }, []);
 
   // Mock suppliers data
   const suppliers = useMemo(() => [
@@ -134,16 +140,44 @@ const SuppliersContent: React.FC<SuppliersContentProps> = memo(({
 
           {/* Navigation Tabs */}
           <div className="flex space-x-1 bg-gray-100 p-1 rounded-lg w-fit">
-            <button className="px-4 py-2 bg-white text-gray-900 rounded-md text-sm font-medium shadow-sm">
+            <button 
+              onClick={() => handleTabChange('all')}
+              className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+                activeTab === 'all' 
+                  ? 'bg-white text-gray-900 shadow-sm' 
+                  : 'text-gray-600 hover:text-gray-900'
+              }`}
+            >
               All Suppliers
             </button>
-            <button className="px-4 py-2 text-gray-600 hover:text-gray-900 text-sm font-medium">
+            <button 
+              onClick={() => handleTabChange('active')}
+              className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+                activeTab === 'active' 
+                  ? 'bg-white text-gray-900 shadow-sm' 
+                  : 'text-gray-600 hover:text-gray-900'
+              }`}
+            >
               Active
             </button>
-            <button className="px-4 py-2 text-gray-600 hover:text-gray-900 text-sm font-medium">
+            <button 
+              onClick={() => handleTabChange('top-rated')}
+              className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+                activeTab === 'top-rated' 
+                  ? 'bg-white text-gray-900 shadow-sm' 
+                  : 'text-gray-600 hover:text-gray-900'
+              }`}
+            >
               Top Rated
             </button>
-            <button className="px-4 py-2 text-gray-600 hover:text-gray-900 text-sm font-medium">
+            <button 
+              onClick={() => handleTabChange('categories')}
+              className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+                activeTab === 'categories' 
+                  ? 'bg-white text-gray-900 shadow-sm' 
+                  : 'text-gray-600 hover:text-gray-900'
+              }`}
+            >
               Categories
             </button>
           </div>
@@ -310,6 +344,82 @@ const SuppliersContent: React.FC<SuppliersContentProps> = memo(({
             </table>
           </div>
         </div>
+
+        {/* Conditional Content Based on Active Tab */}
+        {activeTab === 'active' && (
+          <div className="mt-6 bg-white border border-gray-200 rounded-lg p-6 shadow-sm">
+            <h3 className="text-lg font-semibold text-gray-900 mb-4">Active Suppliers</h3>
+            <div className="space-y-3">
+              {suppliers.filter(s => s.status === 'Active').map((supplier) => (
+                <div key={supplier.id} className="flex items-center justify-between p-3 bg-green-50 rounded-lg border border-green-200">
+                  <div className="flex items-center space-x-3">
+                    <div className="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
+                      <Truck className="w-5 h-5 text-green-600" />
+                    </div>
+                    <div>
+                      <div className="font-medium text-gray-900">{supplier.name}</div>
+                      <div className="text-sm text-gray-500">{supplier.category}</div>
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <div className="font-semibold text-green-600">{supplier.totalOrders} orders</div>
+                    <div className="text-sm text-gray-500">${supplier.totalValue.toLocaleString()}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {activeTab === 'top-rated' && (
+          <div className="mt-6 bg-white border border-gray-200 rounded-lg p-6 shadow-sm">
+            <h3 className="text-lg font-semibold text-gray-900 mb-4">Top Rated Suppliers</h3>
+            <div className="space-y-3">
+              {suppliers.filter(s => s.rating >= 4.5).map((supplier) => (
+                <div key={supplier.id} className="flex items-center justify-between p-3 bg-yellow-50 rounded-lg border border-yellow-200">
+                  <div className="flex items-center space-x-3">
+                    <div className="w-10 h-10 bg-yellow-100 rounded-lg flex items-center justify-center">
+                      <Star className="w-5 h-5 text-yellow-600 fill-current" />
+                    </div>
+                    <div>
+                      <div className="font-medium text-gray-900">{supplier.name}</div>
+                      <div className="text-sm text-gray-500">{supplier.category}</div>
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <div className="font-semibold text-yellow-600">{supplier.rating}/5.0</div>
+                    <div className="text-sm text-gray-500">{supplier.totalOrders} orders</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {activeTab === 'categories' && (
+          <div className="mt-6 bg-white border border-gray-200 rounded-lg p-6 shadow-sm">
+            <h3 className="text-lg font-semibold text-gray-900 mb-4">Supplier Categories</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {['Electronics', 'Components', 'Automotive', 'Textiles', 'Food & Beverage', 'Industrial'].map((category) => (
+                <div key={category} className="p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <div className="font-medium text-gray-900">{category}</div>
+                      <div className="text-sm text-gray-500">
+                        {suppliers.filter(s => s.category === category).length} suppliers
+                      </div>
+                    </div>
+                    <div className="text-right">
+                      <div className="text-sm font-semibold text-blue-600">
+                        {suppliers.filter(s => s.category === category).reduce((sum, s) => sum + s.totalOrders, 0)} orders
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

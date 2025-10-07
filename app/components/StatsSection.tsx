@@ -87,33 +87,42 @@ const StatsSection: React.FC = () => {
             return (
               <div
                 key={index}
-                className="group relative bg-white border border-slate-200/60 p-4 sm:p-5 rounded-2xl overflow-hidden hover:shadow-2xl hover:shadow-blue-500/10 transition-all duration-500 hover:border-blue-300/50 hover:-translate-y-2 hover:scale-[1.02] backdrop-blur-sm"
+                className="group relative bg-white/80 backdrop-blur-sm border border-slate-200/60 p-5 sm:p-6 rounded-3xl overflow-hidden hover:shadow-2xl hover:shadow-brand-main/20 transition-all duration-700 hover:border-brand-main/30 hover:-translate-y-3 hover:scale-[1.05] hover:bg-white/95"
               >
-                {/* Background Gradient */}
-                <div className={`absolute inset-0 bg-gradient-to-br ${stat.color}/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300`}></div>
+                {/* Enhanced Background Gradient */}
+                <div className={`absolute inset-0 bg-gradient-to-br ${stat.color}/12 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-all duration-700`}></div>
                 
-                {/* Icon */}
-                <div className="relative z-10 mb-3 sm:mb-4 flex justify-center">
-                  <div className={`w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br ${stat.color} rounded-xl flex items-center justify-center shadow-lg group-hover:shadow-2xl transition-all duration-500 group-hover:scale-110 group-hover:rotate-3 ring-4 ring-white/50`}>
-                    <IconComponent size={18} className="sm:w-5 sm:h-5 text-white drop-shadow-sm" />
+                {/* Floating Decorative Elements */}
+                <div className={`absolute top-0 right-0 w-12 h-12 bg-gradient-to-br ${stat.color}/25 to-transparent rounded-full -translate-y-6 translate-x-6 group-hover:scale-150 group-hover:rotate-45 transition-all duration-1000`}></div>
+                <div className="absolute bottom-0 left-0 w-8 h-8 bg-gradient-to-tr from-brand-main/15 to-transparent rounded-full translate-y-4 -translate-x-4 group-hover:scale-125 group-hover:rotate-12 transition-all duration-1000"></div>
+                
+                {/* Enhanced Icon with Glow */}
+                <div className="relative z-10 mb-4 sm:mb-5 flex justify-center">
+                  <div className={`w-12 h-12 sm:w-14 sm:h-14 bg-gradient-to-br ${stat.color} rounded-2xl flex items-center justify-center shadow-xl group-hover:shadow-2xl transition-all duration-700 group-hover:scale-115 group-hover:rotate-6 ring-4 ring-white/60 group-hover:ring-brand-main/20 relative overflow-hidden`}>
+                    {/* Icon Glow Effect */}
+                    <div className={`absolute inset-0 bg-gradient-to-br ${stat.color} opacity-0 group-hover:opacity-30 blur-sm transition-opacity duration-700`}></div>
+                    <IconComponent size={20} className="sm:w-6 sm:h-6 text-white drop-shadow-lg relative z-10 group-hover:scale-110 transition-transform duration-500" />
                   </div>
                 </div>
                 
-                {/* Content */}
+                {/* Enhanced Content */}
                 <div className="relative z-10 text-center">
-                  <div className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-slate-900 mb-2 sm:mb-3 group-hover:text-blue-900 transition-colors duration-300 tracking-tight">
+                  <div className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900 mb-3 sm:mb-4 group-hover:text-brand-third transition-colors duration-500 tracking-tight">
                     {stat.percentage}
                   </div>
-                  <p className="text-xs sm:text-sm text-slate-600 font-semibold uppercase tracking-wider leading-tight group-hover:text-slate-700 transition-colors duration-300">
+                  <p className="text-xs sm:text-sm text-slate-600 font-semibold uppercase tracking-wider leading-tight group-hover:text-slate-700 transition-colors duration-500">
                     {stat.description}
                   </p>
                 </div>
                 
-                {/* Professional Accent Line */}
-                <div className={`absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r ${stat.color} opacity-0 group-hover:opacity-100 transition-all duration-500 transform scale-x-0 group-hover:scale-x-100`}></div>
+                {/* Enhanced Accent Line */}
+                <div className={`absolute bottom-0 left-0 right-0 h-1.5 bg-gradient-to-r ${stat.color} opacity-0 group-hover:opacity-100 transition-all duration-700 transform scale-x-0 group-hover:scale-x-100 rounded-full`}></div>
                 
-                {/* Subtle Corner Badge */}
-                <div className="absolute top-3 right-3 w-2 h-2 bg-slate-300 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:bg-blue-500"></div>
+                {/* Enhanced Corner Badge */}
+                <div className="absolute top-4 right-4 w-3 h-3 bg-slate-300 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-500 group-hover:bg-brand-main group-hover:scale-125 group-hover:shadow-lg"></div>
+                
+                {/* Subtle Border Glow */}
+                <div className={`absolute inset-0 rounded-3xl border-2 border-transparent group-hover:border-${stat.color.split('-')[1]}-200/30 transition-all duration-700`}></div>
               </div>
             );
           })}

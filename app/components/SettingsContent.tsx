@@ -124,11 +124,17 @@ const SettingsContent: React.FC<SettingsContentProps> = memo(({
             AD
           </div>
           <div className="flex space-x-3">
-            <button className="px-4 py-2 border border-gray-200 rounded-lg text-sm hover:bg-gray-50 transition-colors flex items-center space-x-2">
+            <button 
+              onClick={() => alert('Upload new profile picture')}
+              className="px-4 py-2 border border-gray-200 rounded-lg text-sm hover:bg-gray-50 transition-colors flex items-center space-x-2"
+            >
               <Upload className="w-4 h-4" />
               <span>Upload New</span>
             </button>
-            <button className="px-4 py-2 border border-gray-200 rounded-lg text-sm hover:bg-gray-50 transition-colors flex items-center space-x-2">
+            <button 
+              onClick={() => alert('Remove profile picture')}
+              className="px-4 py-2 border border-gray-200 rounded-lg text-sm hover:bg-gray-50 transition-colors flex items-center space-x-2"
+            >
               <Trash2 className="w-4 h-4" />
               <span>Remove</span>
             </button>
@@ -300,7 +306,10 @@ const SettingsContent: React.FC<SettingsContentProps> = memo(({
             <div className="text-sm font-medium text-gray-900">Enable 2FA</div>
             <div className="text-sm text-gray-500">Add an extra layer of security to your account</div>
           </div>
-          <button className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
+          <button 
+            onClick={() => alert('2FA setup initiated!')}
+            className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+          >
             Enable
           </button>
         </div>
@@ -348,7 +357,10 @@ const SettingsContent: React.FC<SettingsContentProps> = memo(({
             <div className="text-lg font-semibold text-blue-900">Professional Plan</div>
             <div className="text-sm text-blue-700">$99/month • Billed monthly</div>
           </div>
-          <button className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
+          <button 
+            onClick={() => alert('Redirecting to upgrade page...')}
+            className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+          >
             Upgrade
           </button>
         </div>
@@ -393,7 +405,10 @@ const SettingsContent: React.FC<SettingsContentProps> = memo(({
           </div>
         </div>
         <div className="mt-4">
-          <button className="text-blue-600 hover:text-blue-800 text-sm flex items-center space-x-2">
+          <button 
+            onClick={() => alert('Downloading all invoices...')}
+            className="text-blue-600 hover:text-blue-800 text-sm flex items-center space-x-2"
+          >
             <Download className="w-4 h-4" />
             <span>Download All Invoices</span>
           </button>

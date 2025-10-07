@@ -45,37 +45,43 @@ export function FeaturesSection() {
             return (
               <div
                 key={feature.title}
-                className="group relative bg-white border border-slate-200/60 p-5 sm:p-6 rounded-2xl overflow-hidden hover:shadow-2xl hover:shadow-blue-500/10 transition-all duration-500 hover:border-blue-300/50 hover:-translate-y-2 hover:scale-[1.02] backdrop-blur-sm"
+                className="group relative bg-white/80 backdrop-blur-sm border border-slate-200/60 p-6 sm:p-8 rounded-3xl overflow-hidden hover:shadow-2xl hover:shadow-brand-main/20 transition-all duration-700 hover:border-brand-main/30 hover:-translate-y-3 hover:scale-[1.03] hover:bg-white/95"
               >
-                {/* Background Gradient */}
-                <div className={`absolute inset-0 bg-gradient-to-br ${feature.color.replace('from-', 'from-').replace('to-', 'to-')}/5 via-transparent to-slate-50/50 opacity-0 group-hover:opacity-100 transition-opacity duration-500`}></div>
+                {/* Animated Background Gradient */}
+                <div className={`absolute inset-0 bg-gradient-to-br ${feature.color.replace('from-', 'from-').replace('to-', 'to-')}/8 via-transparent to-slate-50/60 opacity-0 group-hover:opacity-100 transition-all duration-700`}></div>
                 
-                {/* Decorative Elements */}
-                <div className={`absolute top-0 right-0 w-12 h-12 bg-gradient-to-br ${feature.color.replace('from-', 'from-').replace('to-', 'to-')}/15 to-transparent rounded-full -translate-y-6 translate-x-6 group-hover:scale-125 transition-transform duration-700`}></div>
-                <div className="absolute bottom-0 left-0 w-10 h-10 bg-gradient-to-tr from-slate-100/30 to-transparent rounded-full translate-y-5 -translate-x-5 group-hover:scale-110 transition-transform duration-700"></div>
+                {/* Floating Decorative Elements */}
+                <div className={`absolute top-0 right-0 w-16 h-16 bg-gradient-to-br ${feature.color.replace('from-', 'from-').replace('to-', 'to-')}/20 to-transparent rounded-full -translate-y-8 translate-x-8 group-hover:scale-150 group-hover:rotate-45 transition-all duration-1000`}></div>
+                <div className="absolute bottom-0 left-0 w-12 h-12 bg-gradient-to-tr from-brand-main/10 to-transparent rounded-full translate-y-6 -translate-x-6 group-hover:scale-125 group-hover:rotate-12 transition-all duration-1000"></div>
+                <div className="absolute top-1/2 left-1/2 w-8 h-8 bg-gradient-to-br from-slate-100/40 to-transparent rounded-full -translate-x-1/2 -translate-y-1/2 group-hover:scale-200 group-hover:opacity-0 transition-all duration-1000"></div>
                 
-                {/* Icon */}
-                <div className="relative z-10 mb-4 sm:mb-5">
-                  <div className={`w-12 h-12 sm:w-14 sm:h-14 bg-gradient-to-br ${feature.color} rounded-2xl flex items-center justify-center shadow-lg group-hover:shadow-2xl transition-all duration-500 group-hover:scale-110 group-hover:rotate-3 ring-4 ring-white/50`}>
-                    <IconComponent size={20} className="sm:w-6 sm:h-6 text-white drop-shadow-sm" />
+                {/* Enhanced Icon with Glow */}
+                <div className="relative z-10 mb-6 sm:mb-7">
+                  <div className={`w-16 h-16 sm:w-18 sm:h-18 bg-gradient-to-br ${feature.color} rounded-3xl flex items-center justify-center shadow-xl group-hover:shadow-2xl transition-all duration-700 group-hover:scale-115 group-hover:rotate-6 ring-4 ring-white/60 group-hover:ring-brand-main/20 relative overflow-hidden`}>
+                    {/* Icon Glow Effect */}
+                    <div className={`absolute inset-0 bg-gradient-to-br ${feature.color} opacity-0 group-hover:opacity-30 blur-sm transition-opacity duration-700`}></div>
+                    <IconComponent size={24} className="sm:w-7 sm:h-7 text-white drop-shadow-lg relative z-10 group-hover:scale-110 transition-transform duration-500" />
                   </div>
                 </div>
                 
-                {/* Content */}
+                {/* Enhanced Content */}
                 <div className="relative z-10">
-                  <h3 className="text-lg sm:text-xl font-bold text-slate-900 mb-3 sm:mb-4 group-hover:text-blue-900 transition-colors duration-300 leading-tight tracking-tight">
+                  <h3 className="text-xl sm:text-2xl font-bold text-slate-900 mb-4 sm:mb-5 group-hover:text-brand-third transition-colors duration-500 leading-tight tracking-tight">
                     {feature.title}
                   </h3>
-                  <p className="text-sm sm:text-base text-slate-600 leading-relaxed group-hover:text-slate-700 transition-colors duration-300 font-medium">
+                  <p className="text-sm sm:text-base text-slate-600 leading-relaxed group-hover:text-slate-700 transition-colors duration-500 font-medium">
                     {feature.description}
                   </p>
                 </div>
                 
-                {/* Professional Accent Line */}
-                <div className={`absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r ${feature.color} opacity-0 group-hover:opacity-100 transition-all duration-500 transform scale-x-0 group-hover:scale-x-100`}></div>
+                {/* Enhanced Accent Line with Animation */}
+                <div className={`absolute bottom-0 left-0 right-0 h-1.5 bg-gradient-to-r ${feature.color} opacity-0 group-hover:opacity-100 transition-all duration-700 transform scale-x-0 group-hover:scale-x-100 rounded-full`}></div>
                 
-                {/* Subtle Corner Badge */}
-                <div className="absolute top-3 right-3 w-2 h-2 bg-slate-300 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:bg-blue-500"></div>
+                {/* Enhanced Corner Badge */}
+                <div className="absolute top-4 right-4 w-3 h-3 bg-slate-300 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-500 group-hover:bg-brand-main group-hover:scale-125 group-hover:shadow-lg"></div>
+                
+                {/* Subtle Border Glow */}
+                <div className={`absolute inset-0 rounded-3xl border-2 border-transparent group-hover:border-${feature.color.split('-')[1]}-200/30 transition-all duration-700`}></div>
               </div>
             );
           })}

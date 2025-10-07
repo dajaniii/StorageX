@@ -1,6 +1,6 @@
 'use client';
 
-import React, { memo, useCallback, useMemo } from 'react';
+import React, { memo, useCallback, useMemo, useState } from 'react';
 import {
   Package,
   Search,
@@ -31,6 +31,8 @@ const ProductsContent: React.FC<ProductsContentProps> = memo(({
   onTimeFilterChange,
   onPageChange
 }) => {
+  const [activeTab, setActiveTab] = useState<'all' | 'low-stock' | 'out-of-stock' | 'categories'>('all');
+
   const handleTimeFilterChange = useCallback((period: string) => {
     onTimeFilterChange(period);
   }, [onTimeFilterChange]);
@@ -38,6 +40,10 @@ const ProductsContent: React.FC<ProductsContentProps> = memo(({
   const handlePageChange = useCallback((page: PageType) => {
     onPageChange(page);
   }, [onPageChange]);
+
+  const handleTabChange = useCallback((tab: 'all' | 'low-stock' | 'out-of-stock' | 'categories') => {
+    setActiveTab(tab);
+  }, []);
 
   // Mock product data
   const products = useMemo(() => [
@@ -133,16 +139,44 @@ const ProductsContent: React.FC<ProductsContentProps> = memo(({
 
           {/* Navigation Tabs */}
           <div className="flex space-x-1 bg-gray-100 p-1 rounded-lg w-fit">
-            <button className="px-4 py-2 bg-white text-gray-900 rounded-md text-sm font-medium shadow-sm">
+            <button 
+              onClick={() => handleTabChange('all')}
+              className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+                activeTab === 'all' 
+                  ? 'bg-white text-gray-900 shadow-sm' 
+                  : 'text-gray-600 hover:text-gray-900'
+              }`}
+            >
               All Products
             </button>
-            <button className="px-4 py-2 text-gray-600 hover:text-gray-900 text-sm font-medium">
+            <button 
+              onClick={() => handleTabChange('low-stock')}
+              className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+                activeTab === 'low-stock' 
+                  ? 'bg-white text-gray-900 shadow-sm' 
+                  : 'text-gray-600 hover:text-gray-900'
+              }`}
+            >
               Low Stock
             </button>
-            <button className="px-4 py-2 text-gray-600 hover:text-gray-900 text-sm font-medium">
+            <button 
+              onClick={() => handleTabChange('out-of-stock')}
+              className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+                activeTab === 'out-of-stock' 
+                  ? 'bg-white text-gray-900 shadow-sm' 
+                  : 'text-gray-600 hover:text-gray-900'
+              }`}
+            >
               Out of Stock
             </button>
-            <button className="px-4 py-2 text-gray-600 hover:text-gray-900 text-sm font-medium">
+            <button 
+              onClick={() => handleTabChange('categories')}
+              className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+                activeTab === 'categories' 
+                  ? 'bg-white text-gray-900 shadow-sm' 
+                  : 'text-gray-600 hover:text-gray-900'
+              }`}
+            >
               Categories
             </button>
           </div>
@@ -153,8 +187,8 @@ const ProductsContent: React.FC<ProductsContentProps> = memo(({
           <div className="bg-white border border-gray-200 rounded-lg p-6 shadow-sm">
             <div className="flex items-center justify-between mb-4">
               <div className="text-sm font-medium text-gray-600">Total Products</div>
-              <div className="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center">
-                <Package className="w-4 h-4 text-blue-600" />
+              <div className="w-8 h-8 bg-brand-100 rounded-lg flex items-center justify-center">
+                <Package className="w-4 h-4 text-brand-main" />
               </div>
             </div>
             <div className="text-2xl font-bold text-gray-900 mb-1">1,247</div>
@@ -203,17 +237,17 @@ const ProductsContent: React.FC<ProductsContentProps> = memo(({
               <input
                 type="text"
                 placeholder="Search products..."
-                className="pl-10 pr-4 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500/50"
+                className="pl-10 pr-4 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-brand-main/20 focus:border-brand-main/50"
               />
             </div>
-            <select className="px-4 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500/50">
+            <select className="px-4 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-brand-main/20 focus:border-brand-main/50">
               <option>All Categories</option>
               <option>Smartphones</option>
               <option>Laptops</option>
               <option>Audio</option>
               <option>Tablets</option>
             </select>
-            <select className="px-4 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500/50">
+            <select className="px-4 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-brand-main/20 focus:border-brand-main/50">
               <option>All Status</option>
               <option>Active</option>
               <option>Low Stock</option>
@@ -293,7 +327,7 @@ const ProductsContent: React.FC<ProductsContentProps> = memo(({
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
                       <div className="flex items-center space-x-2">
-                        <button className="text-blue-600 hover:text-blue-900">
+                        <button className="text-brand-main hover:text-brand-third">
                           <Eye className="w-4 h-4" />
                         </button>
                         <button className="text-gray-600 hover:text-gray-900">
@@ -310,6 +344,78 @@ const ProductsContent: React.FC<ProductsContentProps> = memo(({
             </table>
           </div>
         </div>
+
+        {/* Conditional Content Based on Active Tab */}
+        {activeTab === 'low-stock' && (
+          <div className="mt-6 bg-white border border-gray-200 rounded-lg p-6 shadow-sm">
+            <h3 className="text-lg font-semibold text-gray-900 mb-4">Low Stock Products</h3>
+            <div className="space-y-3">
+              {products.filter(p => p.status === 'Low Stock').map((product) => (
+                <div key={product.id} className="flex items-center justify-between p-3 bg-orange-50 rounded-lg border border-orange-200">
+                  <div className="flex items-center space-x-3">
+                    <div className="text-2xl">{product.image}</div>
+                    <div>
+                      <div className="font-medium text-gray-900">{product.name}</div>
+                      <div className="text-sm text-gray-500">{product.category}</div>
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <div className="font-semibold text-orange-600">{product.stock} units</div>
+                    <div className="text-sm text-gray-500">Threshold: {product.lowStockThreshold}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {activeTab === 'out-of-stock' && (
+          <div className="mt-6 bg-white border border-gray-200 rounded-lg p-6 shadow-sm">
+            <h3 className="text-lg font-semibold text-gray-900 mb-4">Out of Stock Products</h3>
+            <div className="space-y-3">
+              {products.filter(p => p.status === 'Out of Stock').map((product) => (
+                <div key={product.id} className="flex items-center justify-between p-3 bg-red-50 rounded-lg border border-red-200">
+                  <div className="flex items-center space-x-3">
+                    <div className="text-2xl">{product.image}</div>
+                    <div>
+                      <div className="font-medium text-gray-900">{product.name}</div>
+                      <div className="text-sm text-gray-500">{product.category}</div>
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <div className="font-semibold text-red-600">0 units</div>
+                    <div className="text-sm text-gray-500">Needs restocking</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {activeTab === 'categories' && (
+          <div className="mt-6 bg-white border border-gray-200 rounded-lg p-6 shadow-sm">
+            <h3 className="text-lg font-semibold text-gray-900 mb-4">Product Categories</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {['Electronics', 'Smartphones', 'Laptops', 'Audio', 'Accessories', 'Components'].map((category) => (
+                <div key={category} className="p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <div className="font-medium text-gray-900">{category}</div>
+                      <div className="text-sm text-gray-500">
+                        {products.filter(p => p.category === category).length} products
+                      </div>
+                    </div>
+                    <div className="text-right">
+                      <div className="text-sm font-semibold text-brand-main">
+                        {products.filter(p => p.category === category).reduce((sum, p) => sum + p.stock, 0)} units
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

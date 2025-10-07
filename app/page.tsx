@@ -2,12 +2,14 @@
 
 import { useState } from 'react';
 import LandingPage from './components/LandingPage';
+import DashboardLayout from './components/DashboardLayout';
 import { PageType } from './types';
 
 export default function Home() {
   const [currentPage, setCurrentPage] = useState<PageType>('landing');
 
   const handlePageChange = (page: PageType) => {
+    console.log('Page change requested:', page);
     setCurrentPage(page);
   };
 
@@ -15,7 +17,6 @@ export default function Home() {
     return <LandingPage onPageChange={handlePageChange} />;
   }
 
-  // For now, redirect back to landing for other pages
-  // In a real app, you'd handle routing properly
-  return <LandingPage onPageChange={handlePageChange} />;
+  // Handle dashboard and all other pages
+  return <DashboardLayout initialPage={currentPage} onPageChange={handlePageChange} />;
 }

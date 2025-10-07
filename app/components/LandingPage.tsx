@@ -19,6 +19,12 @@ interface LandingPageProps {
 const LandingPage: React.FC<LandingPageProps> = ({ onPageChange }) => {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
 
+  const handleGetStarted = () => {
+    alert('Button clicked! Navigating to dashboard...');
+    console.log('Get Started clicked - navigating to dashboard');
+    onPageChange('dashboard');
+  };
+
   return (
     <div className="min-h-screen bg-slate-100">
       {/* Navigation */}
@@ -48,27 +54,27 @@ const LandingPage: React.FC<LandingPageProps> = ({ onPageChange }) => {
             
             {/* Buttons - Right side */}
             <div className="hidden sm:flex items-center gap-1 lg:gap-2 flex-shrink-0">
-              <button 
-                onClick={() => onPageChange('dashboard')}
-                className="text-black px-2 lg:px-4 py-2 text-xs lg:text-sm rounded hover:bg-gray-100 hover:text-slate-800 transition-all duration-200 font-medium"
+              <a 
+                href="/dashboard"
+                className="text-black px-2 lg:px-4 py-2 text-xs lg:text-sm rounded-lg hover:bg-brand-main hover:text-white hover:shadow-lg hover:scale-105 transition-all duration-300 font-medium inline-block transform"
               >
                 <span className="hidden lg:inline">Book a Demo</span>
                 <span className="lg:hidden">Demo</span>
-              </button>
+              </a>
               <div className="w-[1px] h-8 lg:h-10 bg-slate-600 mr-1 lg:mr-2"></div>
-              <button 
-                onClick={() => onPageChange('dashboard')}
-                className="text-black px-2 lg:px-4 py-2 rounded text-xs lg:text-sm border border-slate-600 hover:bg-white transition-all duration-200 font-medium"
+              <a 
+                href="/dashboard"
+                className="text-black px-2 lg:px-4 py-2.5 rounded-lg text-xs lg:text-sm border border-slate-600 hover:bg-brand-third hover:text-white hover:border-brand-third hover:shadow-lg hover:scale-105 transition-all duration-300 font-medium inline-block transform"
               >
                 Sign In
-              </button>
-              <button 
-                onClick={() => onPageChange('dashboard')}
-                className="bg-blue-700 text-white px-2 lg:px-4 py-2 rounded text-xs lg:text-sm transform hover:scale-105 transition-all duration-200 font-medium"
+              </a>
+              <a 
+                href="/dashboard"
+                className="bg-brand-main text-white px-3 lg:px-4 py-2.5 rounded-lg text-xs lg:text-sm font-semibold transform hover:scale-105 hover:from-brand-700 hover:to-brand-third transition-all duration-300 inline-block hover:border-brand-third/30"
               >
                 <span className="hidden lg:inline">Get Started</span>
                 <span className="lg:hidden">Start</span>
-              </button>
+              </a>
             </div>
 
             <div className="sm:hidden flex items-center">
@@ -87,24 +93,24 @@ const LandingPage: React.FC<LandingPageProps> = ({ onPageChange }) => {
               <a href="#pricing" className="block py-2 text-slate-600 hover:text-slate-900 font-medium transition-colors">Pricing</a>
               <a href="#testimonials" className="block py-2 text-slate-600 hover:text-slate-900 font-medium transition-colors">Reviews</a>
               <div className="flex flex-col space-y-2 pt-2">
-                <button 
-                  onClick={() => onPageChange('dashboard')}
-                  className="w-full bg-blue-700 text-white px-4 py-3 rounded-lg font-semibold shadow-lg"
+                <a 
+                  href="/dashboard"
+                  className="w-full bg-gradient-to-r from-brand-main to-brand-700 text-white px-6 py-4 rounded-xl font-bold hover:from-brand-700 hover:to-brand-third hover:scale-105 transition-all duration-300 text-center inline-block transform border border-brand-main/20 hover:border-brand-third/30 text-lg"
                 >
                   Get Started
-                </button>
-                <button 
-                  onClick={() => onPageChange('dashboard')}
-                  className="w-full border border-slate-300 text-slate-700 px-4 py-3 rounded-lg font-medium"
+                </a>
+                <a 
+                  href="/dashboard"
+                  className="w-full border border-slate-300 text-slate-700 px-4 py-3 rounded-lg font-medium hover:bg-brand-third hover:text-white hover:border-brand-third hover:shadow-lg hover:scale-105 transition-all duration-300 text-center inline-block transform"
                 >
                   Sign In
-                </button>
-                <button 
-                  onClick={() => onPageChange('dashboard')}
-                  className="w-full text-slate-600 px-4 py-3 rounded-lg font-medium"
+                </a>
+                <a 
+                  href="/dashboard"
+                  className="w-full text-slate-600 px-4 py-3 rounded-lg font-medium hover:bg-brand-main hover:text-white hover:shadow-lg hover:scale-105 transition-all duration-300 text-center inline-block transform"
                 >
                   Book a Demo
-                </button>
+                </a>
               </div>
             </div>
           </div>
@@ -113,15 +119,15 @@ const LandingPage: React.FC<LandingPageProps> = ({ onPageChange }) => {
 
       {/* Hero Section */}
       <HeroWithMockup
-        title="Smart Inventory Management Powered by AI"
+        title="AI Demand Forecasting & Smart Inventory Management"
         description="Transform your retail operations with intelligent inventory management. Predict demand, prevent stockouts, and maximize profits with our advanced AI platform."
         primaryCta={{
           text: "Start Free Trial",
-          href: "#",
+          href: "/dashboard",
         }}
         secondaryCta={{
           text: "Watch Demo",
-          href: "#",
+          href: "/dashboard",
           icon: <Play className="mr-2 h-4 w-4" />,
         }}
         mockupImage={{

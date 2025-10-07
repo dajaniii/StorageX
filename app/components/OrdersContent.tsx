@@ -16,7 +16,8 @@ import {
   DollarSign,
   Calendar,
   User,
-  MapPin
+  MapPin,
+  Plus
 } from 'lucide-react';
 import { PageType } from '../types';
 
@@ -108,7 +109,7 @@ const OrdersContent: React.FC<OrdersContentProps> = memo(({
       case 'Delivered':
         return <CheckCircle className="w-4 h-4 text-green-600" />;
       case 'Shipped':
-        return <Truck className="w-4 h-4 text-blue-600" />;
+        return <Truck className="w-4 h-4 text-brand-main" />;
       case 'Processing':
         return <Package className="w-4 h-4 text-orange-600" />;
       case 'Pending':
@@ -125,7 +126,7 @@ const OrdersContent: React.FC<OrdersContentProps> = memo(({
       case 'Delivered':
         return 'bg-green-100 text-green-800';
       case 'Shipped':
-        return 'bg-blue-100 text-blue-800';
+        return 'bg-brand-100 text-brand-800';
       case 'Processing':
         return 'bg-orange-100 text-orange-800';
       case 'Pending':
@@ -153,6 +154,13 @@ const OrdersContent: React.FC<OrdersContentProps> = memo(({
                 <Calendar className="w-4 h-4" />
                 <span className="text-sm">Jan 20, 2023 - Feb 09, 2023</span>
               </div>
+              <button 
+                onClick={() => alert('Opening Add Order form...')}
+                className="bg-gray-800 text-white px-4 py-2 rounded-lg hover:bg-gray-900 transition-colors flex items-center space-x-2"
+              >
+                <Plus className="w-4 h-4" />
+                <span>Add Order</span>
+              </button>
             </div>
           </div>
 
@@ -181,8 +189,8 @@ const OrdersContent: React.FC<OrdersContentProps> = memo(({
           <div className="bg-white border border-gray-200 rounded-lg p-6 shadow-sm">
             <div className="flex items-center justify-between mb-4">
               <div className="text-sm font-medium text-gray-600">Total Orders</div>
-              <div className="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center">
-                <ShoppingCart className="w-4 h-4 text-blue-600" />
+              <div className="w-8 h-8 bg-brand-100 rounded-lg flex items-center justify-center">
+                <ShoppingCart className="w-4 h-4 text-brand-main" />
               </div>
             </div>
             <div className="text-2xl font-bold text-gray-900 mb-1">1,247</div>
@@ -231,10 +239,10 @@ const OrdersContent: React.FC<OrdersContentProps> = memo(({
               <input
                 type="text"
                 placeholder="Search orders..."
-                className="pl-10 pr-4 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500/50"
+                className="pl-10 pr-4 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-brand-main/20 focus:border-brand-main/50"
               />
             </div>
-            <select className="px-4 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500/50">
+            <select className="px-4 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-brand-main/20 focus:border-brand-main/50">
               <option>All Status</option>
               <option>Pending</option>
               <option>Processing</option>
@@ -242,7 +250,10 @@ const OrdersContent: React.FC<OrdersContentProps> = memo(({
               <option>Delivered</option>
               <option>Cancelled</option>
             </select>
-            <button className="px-4 py-2 border border-gray-200 rounded-lg text-sm hover:bg-gray-50 transition-colors flex items-center space-x-2">
+            <button 
+              onClick={() => alert('Opening advanced filters...')}
+              className="px-4 py-2 border border-gray-200 rounded-lg text-sm hover:bg-gray-50 transition-colors flex items-center space-x-2"
+            >
               <Filter className="w-4 h-4" />
               <span>More Filters</span>
             </button>
@@ -300,17 +311,23 @@ const OrdersContent: React.FC<OrdersContentProps> = memo(({
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       {order.trackingNumber ? (
-                        <div className="text-sm text-blue-600 font-mono">{order.trackingNumber}</div>
+                        <div className="text-sm text-brand-main font-mono">{order.trackingNumber}</div>
                       ) : (
                         <span className="text-sm text-gray-400">-</span>
                       )}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
                       <div className="flex items-center space-x-2">
-                        <button className="text-blue-600 hover:text-blue-900">
+                        <button 
+                          onClick={() => alert(`Viewing order ${order.id} details...`)}
+                          className="text-brand-main hover:text-brand-third"
+                        >
                           <Eye className="w-4 h-4" />
                         </button>
-                        <button className="text-gray-600 hover:text-gray-900">
+                        <button 
+                          onClick={() => alert(`Editing order ${order.id}...`)}
+                          className="text-gray-600 hover:text-gray-900"
+                        >
                           <Edit className="w-4 h-4" />
                         </button>
                       </div>

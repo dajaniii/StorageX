@@ -97,11 +97,17 @@ const FAQSection: React.FC = () => {
             Our team is here to help. Reach out to us for personalized support and a free demo.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button className="bg-gradient-to-r from-blue-600 to-blue-700 text-white px-8 py-4 rounded-xl hover:from-blue-700 hover:to-blue-800 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 font-semibold flex items-center justify-center space-x-2">
+            <button 
+              onClick={() => window.location.href = '/dashboard'}
+              className="bg-gradient-to-r from-blue-600 to-blue-700 text-white px-8 py-4 rounded-xl hover:from-blue-700 hover:to-blue-800 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 font-semibold flex items-center justify-center space-x-2"
+            >
               <Zap className="w-5 h-5" />
               <span>Contact Sales</span>
             </button>
-            <button className="border border-slate-300 text-slate-700 px-8 py-4 rounded-xl hover:bg-slate-50 transition-colors text-lg font-semibold flex items-center justify-center space-x-2">
+            <button 
+              onClick={() => window.location.href = '/dashboard'}
+              className="border border-slate-300 text-slate-700 px-8 py-4 rounded-xl hover:bg-slate-50 transition-colors text-lg font-semibold flex items-center justify-center space-x-2"
+            >
               <span>Request a Demo</span>
             </button>
           </div>

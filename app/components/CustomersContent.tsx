@@ -1,6 +1,6 @@
 'use client';
 
-import React, { memo, useCallback, useMemo } from 'react';
+import React, { memo, useCallback, useMemo, useState } from 'react';
 import {
   Users,
   Search,
@@ -31,6 +31,9 @@ const CustomersContent: React.FC<CustomersContentProps> = memo(({
   onTimeFilterChange,
   onPageChange
 }) => {
+  const [activeTab, setActiveTab] = useState<'all' | 'active' | 'inactive' | 'vip'>('all');
+  const [searchQuery, setSearchQuery] = useState<string>('');
+
   const handleTimeFilterChange = useCallback((period: string) => {
     onTimeFilterChange(period);
   }, [onTimeFilterChange]);
@@ -39,8 +42,12 @@ const CustomersContent: React.FC<CustomersContentProps> = memo(({
     onPageChange(page);
   }, [onPageChange]);
 
+  const handleTabChange = useCallback((tab: 'all' | 'active' | 'inactive' | 'vip') => {
+    setActiveTab(tab);
+  }, []);
+
   // Mock customer data
-  const customers = useMemo(() => [
+  const allCustomers = useMemo(() => [
     {
       id: 1,
       name: 'John Smith',
@@ -88,8 +95,69 @@ const CustomersContent: React.FC<CustomersContentProps> = memo(({
       totalSpent: 3421.80,
       status: 'Active',
       avatar: 'ED'
+    },
+    {
+      id: 5,
+      name: 'Robert Chen',
+      email: 'robert.chen@email.com',
+      phone: '+1 (555) 567-8901',
+      location: 'San Francisco, CA',
+      joinDate: '2023-01-10',
+      totalOrders: 45,
+      totalSpent: 8750.00,
+      status: 'VIP',
+      avatar: 'RC'
+    },
+    {
+      id: 6,
+      name: 'Lisa Anderson',
+      email: 'lisa.anderson@email.com',
+      phone: '+1 (555) 678-9012',
+      location: 'Seattle, WA',
+      joinDate: '2023-02-15',
+      totalOrders: 38,
+      totalSpent: 6234.50,
+      status: 'VIP',
+      avatar: 'LA'
+    },
+    {
+      id: 7,
+      name: 'David Brown',
+      email: 'david.brown@email.com',
+      phone: '+1 (555) 789-0123',
+      location: 'Boston, MA',
+      joinDate: '2023-05-01',
+      totalOrders: 8,
+      totalSpent: 892.30,
+      status: 'Inactive',
+      avatar: 'DB'
     }
   ], []);
+
+  // Filter customers based on active tab and search query
+  const customers = useMemo(() => {
+    let filtered = allCustomers;
+
+    // Filter by status
+    if (activeTab === 'active') {
+      filtered = filtered.filter(customer => customer.status === 'Active');
+    } else if (activeTab === 'inactive') {
+      filtered = filtered.filter(customer => customer.status === 'Inactive');
+    } else if (activeTab === 'vip') {
+      filtered = filtered.filter(customer => customer.status === 'VIP');
+    }
+
+    // Filter by search query
+    if (searchQuery) {
+      filtered = filtered.filter(customer => 
+        customer.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        customer.email.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        customer.location.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+    }
+
+    return filtered;
+  }, [allCustomers, activeTab, searchQuery]);
 
   return (
     <div className="flex-1 bg-white overflow-auto h-full">
@@ -116,16 +184,44 @@ const CustomersContent: React.FC<CustomersContentProps> = memo(({
 
           {/* Navigation Tabs */}
           <div className="flex space-x-1 bg-gray-100 p-1 rounded-lg w-fit">
-            <button className="px-4 py-2 bg-white text-gray-900 rounded-md text-sm font-medium shadow-sm">
+            <button 
+              onClick={() => handleTabChange('all')}
+              className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+                activeTab === 'all'
+                  ? 'bg-white text-gray-900 shadow-sm'
+                  : 'text-gray-600 hover:text-gray-900'
+              }`}
+            >
               All Customers
             </button>
-            <button className="px-4 py-2 text-gray-600 hover:text-gray-900 text-sm font-medium">
+            <button 
+              onClick={() => handleTabChange('active')}
+              className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+                activeTab === 'active'
+                  ? 'bg-white text-gray-900 shadow-sm'
+                  : 'text-gray-600 hover:text-gray-900'
+              }`}
+            >
               Active
             </button>
-            <button className="px-4 py-2 text-gray-600 hover:text-gray-900 text-sm font-medium">
+            <button 
+              onClick={() => handleTabChange('inactive')}
+              className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+                activeTab === 'inactive'
+                  ? 'bg-white text-gray-900 shadow-sm'
+                  : 'text-gray-600 hover:text-gray-900'
+              }`}
+            >
               Inactive
             </button>
-            <button className="px-4 py-2 text-gray-600 hover:text-gray-900 text-sm font-medium">
+            <button 
+              onClick={() => handleTabChange('vip')}
+              className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+                activeTab === 'vip'
+                  ? 'bg-white text-gray-900 shadow-sm'
+                  : 'text-gray-600 hover:text-gray-900'
+              }`}
+            >
               VIP
             </button>
           </div>
@@ -186,6 +282,8 @@ const CustomersContent: React.FC<CustomersContentProps> = memo(({
               <input
                 type="text"
                 placeholder="Search customers..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
                 className="pl-10 pr-4 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500/50"
               />
             </div>
@@ -219,7 +317,7 @@ const CustomersContent: React.FC<CustomersContentProps> = memo(({
                 </tr>
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
-                {customers.map((customer) => (
+                {customers.length > 0 ? customers.map((customer) => (
                   <tr key={customer.id} className="hover:bg-gray-50">
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="flex items-center">
@@ -258,6 +356,8 @@ const CustomersContent: React.FC<CustomersContentProps> = memo(({
                       <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
                         customer.status === 'Active' 
                           ? 'bg-green-100 text-green-800' 
+                          : customer.status === 'VIP'
+                          ? 'bg-purple-100 text-purple-800'
                           : 'bg-gray-100 text-gray-800'
                       }`}>
                         {customer.status}
@@ -277,7 +377,22 @@ const CustomersContent: React.FC<CustomersContentProps> = memo(({
                       </div>
                     </td>
                   </tr>
-                ))}
+                )) : (
+                  <tr>
+                    <td colSpan={8} className="px-6 py-12 text-center text-gray-500">
+                      <div className="flex flex-col items-center">
+                        <Users className="w-12 h-12 text-gray-300 mb-4" />
+                        <p className="text-lg font-medium mb-2">No customers found</p>
+                        <p className="text-sm">
+                          {searchQuery 
+                            ? `No customers match "${searchQuery}"` 
+                            : `No ${activeTab === 'all' ? '' : activeTab} customers found`
+                          }
+                        </p>
+                      </div>
+                    </td>
+                  </tr>
+                )}
               </tbody>
             </table>
           </div>
